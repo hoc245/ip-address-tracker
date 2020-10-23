@@ -114,7 +114,7 @@ function sendData() {
 const accessToken = "pk.eyJ1IjoiaG9jMjQ1IiwiYSI6ImNrZ2w3ajF1MjA4a3QyeW8xMTIyNXdmOTgifQ.kfG_yzEgsZeyTHh00HKX5g";
 var mymap = L.map('map').setView([16.0544, 108.2022], 13);
 const iconMarker = L.icon({
-    iconUrl : "../assets/icon-location.svg",
+    iconUrl : "./assets/icon-location.svg",
     iconSize: [46,56],
     iconAnchor : [23, 0],
     popupAnchor : [-3, 0],
