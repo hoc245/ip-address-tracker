@@ -1,0 +1,20 @@
+// DEFINE FONT FAMILY
+$fontfamily : 'Rubik', sans-serif;
+* {
+    font-family: $fontfamily;
+}
+// DEFINE FONT SIZE
+$minfs : 0;
+$maxfs : 100;
+@for $fontsize from $minfs to $maxfs {
+    .fs-#{$fontsize} {
+        font-size: #{$fontsize}px;
+    }
+}
+// DEFINE FONT WEIGHT
+$fontweights : 400 500 700;
+@each $fontweight in $fontweights {
+    .fw-#{$fontweight} {
+        font-weight: $fontweight;
+    }
+}
