@@ -1,4 +1,4 @@
-// SET MARGIN BOTTOM
+// SET MARGIN BOTTOM FOR HEADER
 const header = $('#header');
 const resultContainer = document.getElementById('result');
 document.body.onresize = function(){
@@ -24,6 +24,8 @@ inputText.keypress(function(e){
     var keyCode = e.keyCode;
     var val = inputText.val();
     var type = checkVal(val);
+    ip = "";
+    domain = "";
     if (keyCode === 13) {
         if (type === "invalid") {
             inputText.attr('data-status','error')
@@ -93,11 +95,22 @@ function callAJAX() {
             myLocation.lng = data.location.lng;
             sendData();
             mymap.setView([myLocation.lat, myLocation.lng],13);
-            marker = L.marker([myLocation.lat, myLocation.lng],{icon : iconMarker}).addTo(mymap);
+            var marker = L.marker([myLocation.lat, myLocation.lng],{icon : iconMarker}).addTo(mymap);
+            margin();
+        },
+        error : function() {
+            inputText.attr('data-status','error');
+            inputText.attr('placeholder','Whoops, make sure it is an IP or a domain');
         }
     })
 }
-
+function clientIP() {
+    $.getJSON('http://ipinfo.io',function(data){
+        ip = data.ip;
+        callAJAX();
+    })
+}
+clientIP();
 function sendData() {
     if (ip === "") {
         $('#ip .result-title').html('DOMAIN ADDRESS');
@@ -112,14 +125,13 @@ function sendData() {
 }
 // MAP Create
 const accessToken = "pk.eyJ1IjoiaG9jMjQ1IiwiYSI6ImNrZ2w3ajF1MjA4a3QyeW8xMTIyNXdmOTgifQ.kfG_yzEgsZeyTHh00HKX5g";
-var mymap = L.map('map').setView([16.0544, 108.2022], 13);
+var mymap = L.map('map');
 const iconMarker = L.icon({
     iconUrl : "./assets/icon-location.svg",
     iconSize: [46,56],
     iconAnchor : [23, 0],
     popupAnchor : [-3, 0],
 })
-var marker = L.marker([16.0544, 108.2022], {icon: iconMarker}).addTo(mymap);
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
