@@ -105,7 +105,7 @@ function callAJAX() {
     })
 }
 function clientIP() {
-    $.getJSON('http://ipinfo.io',function(data){
+    $.getJSON('https://ipinfo.io',function(data){
         ip = data.ip;
         callAJAX();
     })
